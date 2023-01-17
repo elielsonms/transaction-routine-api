@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: Transaction Routine API
+  description: |-
+   
+    - [Transaction Routine API repository](https://github.com/elielsonms/transaction-routine-api)
+  contact:
+    email: elielsonms@gmail.com
+  version: "0.1"
+paths:
+  /accounts:
+    post:
+      tags:
+        - Account
+      summary: Account Creation
+      description: Create an account with the required data
+      operationId: createAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountCreationRequest'
+        required: true
+      responses:
+        '201':
+          description: Account Created successfully
+        '400':
+          description: Invalid Request
+      security:
+        - petstore_auth:
+            - write:accounts
+
+  /accounts/{accountId}:
+    get:
+      tags:
+        - Account
+      summary: Fetch Account by its id
+      description: TODO
+      operationId: fetchAccount
+      parameters:
+        - name: accountId
+          in: path
+          description: Account ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account Found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        '404':
+          description: Account Not Found
+      security:
+        - petstore_auth:
+            - read:accounts
+            
+  /transactions:
+    post:
+      tags:
+        - Transaction
+      summary: Transaction Creation
+      description: Create an transaction with the required data
+      operationId: createTransaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionCreationRequest'
+        required: true
+      responses:
+        '201':
+          description: Account Created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          description: Invalid Request
+      security:
+        - petstore_auth:
+            - write:transaction
+  
+components:
+  schemas:
+    AccountCreationRequest:
+      type: object
+      properties:
+        document_number:
+          type: string
+      required:
+        - document_number
+
+    Account:
+      type: object
+      properties:
+        account_id:
+          type: number
+        document_number:
+          type: string
+      required:
+        - account_id
+        - document_number
+        
+    TransactionCreationRequest:
+      type: object
+      properties:
+        account_id:
+          type: number
+        operation_type_id:
+          type: number
+        amount:
+          type: number
+      required:
+        - account_id
+        - operation_type_id
+        - amount
+        
+    Transaction:
+      type: object
+      properties:
+        transaction_id:
+          type: number
+        account_id:
+          type: number
+        operation_type_id:
+          type: number
+        amount:
+          type: number
+        event_date:
+          type: string
+          format: date-time
+      required:
+        - transaction_id
+        - account_id
+        - operation_type_id
+        - amount
+        - event_date
+
+  securitySchemes:
+    petstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://localhost/oauth/authorize
+          scopes:
+            write:accounts: Create account
+            read:accounts: Fetch Account data
+            write:transactions: Create Transaction
