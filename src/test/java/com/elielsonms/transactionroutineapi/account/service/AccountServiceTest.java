@@ -1,0 +1,33 @@
+package com.elielsonms.transactionroutineapi.account.service;
+
+import com.elielsonms.transactionroutineapi.account.model.Account;
+import com.elielsonms.transactionroutineapi.account.repository.AccountRepository;
+import org.junit.jupiter.api.Test;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
+class AccountServiceTest {
+
+    private final AccountRepository accountRepository = mock(AccountRepository.class);
+    private final AccountService accountService = new AccountService(accountRepository);
+
+    @Test
+    void createAccountSuccessfully() {
+        final var expectedAccount = new Account(
+                null,
+                "documentNumber");
+
+        accountService.createAccount(expectedAccount.documentNumber());
+
+        verify(accountRepository).createAccount(expectedAccount);
+    }
+
+    @Test
+    void fetchAccountSuccessfully() {
+        final var accountId = 2L;
+        accountService.fetchAccount(accountId);
+        verify(accountRepository).fetchAccount(accountId);
+    }
+
+}
