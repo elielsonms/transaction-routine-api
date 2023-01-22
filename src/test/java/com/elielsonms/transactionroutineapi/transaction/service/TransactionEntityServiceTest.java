@@ -11,7 +11,7 @@ import java.time.OffsetDateTime;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-class TransactionServiceTest {
+class TransactionEntityServiceTest {
     TransactionRepository transactionRepository = mock(TransactionRepository.class);
     TransactionService transactionService = new TransactionService(transactionRepository);
 
