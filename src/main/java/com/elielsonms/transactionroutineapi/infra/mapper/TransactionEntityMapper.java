@@ -5,7 +5,7 @@ import com.elielsonms.transactionroutineapi.transaction.model.Transaction;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface TransactionMapper {
+public interface TransactionEntityMapper {
 
     Transaction fromJpaToDomain(TransactionEntity transactionEntity);
 

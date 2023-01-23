@@ -6,7 +6,7 @@ import java.time.OffsetDateTime;
 public record Transaction(
         Long transactionId,
         Long accountId,
-        OperationType operationType,
+        Integer operationTypeId,
         BigDecimal amount,
         OffsetDateTime eventDate) {
 }

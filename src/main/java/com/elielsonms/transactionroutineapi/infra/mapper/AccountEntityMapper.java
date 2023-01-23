@@ -5,7 +5,7 @@ import com.elielsonms.transactionroutineapi.infra.model.jpa.AccountEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface AccountMapper {
+public interface AccountEntityMapper {
     Account fromJpaToDomain(AccountEntity accountEntity);
 
     AccountEntity fromDomainToJpa(Account account);

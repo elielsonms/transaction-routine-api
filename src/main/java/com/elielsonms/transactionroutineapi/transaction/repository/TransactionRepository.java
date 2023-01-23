@@ -4,4 +4,6 @@ import com.elielsonms.transactionroutineapi.transaction.model.Transaction;
 
 public interface TransactionRepository {
     Transaction createTransaction(Transaction transaction);
+
+    boolean isCreditOperation(int operationTypeId);
 }

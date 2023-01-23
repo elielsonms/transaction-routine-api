@@ -1,6 +1,5 @@
 package com.elielsonms.transactionroutineapi.transaction.service;
 
-import com.elielsonms.transactionroutineapi.transaction.model.OperationType;
 import com.elielsonms.transactionroutineapi.transaction.model.Transaction;
 import com.elielsonms.transactionroutineapi.transaction.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;
@@ -20,15 +19,14 @@ class TransactionEntityServiceTest {
         final var expectedTransaction = new Transaction(
                 null,
                 1L,
-                new OperationType(1,""),
+                1,
                 BigDecimal.TEN,
                 OffsetDateTime.now());
 
         transactionService.createTransaction(
                 expectedTransaction.accountId(),
-                expectedTransaction.operationType().operationTypeId(),
-                expectedTransaction.amount(),
-                expectedTransaction.eventDate());
+                expectedTransaction.operationTypeId(),
+                expectedTransaction.amount());
 
         verify(transactionRepository).createTransaction(expectedTransaction);
     }
