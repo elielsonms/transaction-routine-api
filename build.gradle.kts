@@ -13,8 +13,13 @@ repositories {
 }
 
 val mapStrutsVersion = "1.5.3.Final"
+val mockitoVersion = "3.9.0"
+val flyWayVersion = "9.8.1"
 
 dependencies {
+
+	implementation("org.flywaydb:flyway-core:$flyWayVersion")
+
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 
@@ -25,7 +30,7 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-	testImplementation("org.mockito:mockito-core:3.9.0")
+	testImplementation("org.mockito:mockito-core:$mockitoVersion")
 
 	runtimeOnly("mysql:mysql-connector-java")
 	runtimeOnly("com.h2database:h2")
