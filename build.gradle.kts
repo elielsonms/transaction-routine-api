@@ -14,11 +14,8 @@ repositories {
 
 val mapStrutsVersion = "1.5.3.Final"
 val mockitoVersion = "3.9.0"
-val flyWayVersion = "9.8.1"
 
 dependencies {
-
-	implementation("org.flywaydb:flyway-core:$flyWayVersion")
 
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
