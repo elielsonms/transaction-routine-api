@@ -1,4 +1,6 @@
 package com.elielsonms.transactionroutineapi.account.model;
 
-public record Account(Long accountId, String documentNumber) {
+import java.math.BigDecimal;
+
+public record Account(Long accountId, String documentNumber, BigDecimal availableCreditLimit) {
 }

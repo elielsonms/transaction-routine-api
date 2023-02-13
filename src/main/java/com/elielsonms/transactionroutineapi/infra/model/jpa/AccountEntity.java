@@ -2,6 +2,8 @@ package com.elielsonms.transactionroutineapi.infra.model.jpa;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "Accounts")
 public class AccountEntity {
@@ -12,6 +14,9 @@ public class AccountEntity {
 
     @Column(name = "Document_Number")
     private String documentNumber;
+
+    @Column(name = "AvailableCreditLimit")
+    private BigDecimal availableCreditLimit = BigDecimal.ZERO;
 
 
     public Long getAccountId() {
@@ -28,5 +33,13 @@ public class AccountEntity {
 
     public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
+    }
+
+    public BigDecimal getAvailableCreditLimit() {
+        return availableCreditLimit;
+    }
+
+    public void setAvailableCreditLimit(BigDecimal availableCreditLimit) {
+        this.availableCreditLimit = availableCreditLimit;
     }
 }

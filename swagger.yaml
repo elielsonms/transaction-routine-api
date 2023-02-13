@@ -102,6 +102,8 @@ components:
           type: number
         document_number:
           type: string
+        available_credit_limit:
+          type: number
       required:
         - account_id
         - document_number

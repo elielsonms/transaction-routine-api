@@ -4,6 +4,8 @@ import com.elielsonms.transactionroutineapi.account.model.Account;
 import com.elielsonms.transactionroutineapi.account.repository.AccountRepository;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -16,9 +18,10 @@ class AccountServiceTest {
     void createAccountSuccessfully() {
         final var expectedAccount = new Account(
                 null,
-                "documentNumber");
+                "documentNumber",
+                BigDecimal.TEN);
 
-        accountService.createAccount(expectedAccount.documentNumber());
+        accountService.createAccount(expectedAccount.documentNumber(), expectedAccount.availableCreditLimit());
 
         verify(accountRepository).createAccount(expectedAccount);
     }
@@ -28,6 +31,18 @@ class AccountServiceTest {
         final var accountId = 2L;
         accountService.fetchAccount(accountId);
         verify(accountRepository).fetchAccount(accountId);
+    }
+
+
+    @Test
+    void createAccountSuccessfullyWithoutCredit() {
+        final var expectedAccount = new Account(
+                null,
+                "documentNumber", BigDecimal.ZERO);
+
+        accountService.createAccount(expectedAccount.documentNumber(), null);
+
+        verify(accountRepository).createAccount(expectedAccount);
     }
 
 }

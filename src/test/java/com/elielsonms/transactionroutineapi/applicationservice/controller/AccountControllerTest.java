@@ -12,6 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -35,10 +37,10 @@ class AccountControllerTest {
 
     @Test
     void account_creation_succeed() throws Exception {
-        final var accountRequest = new AccountRequest("documentNumber");
-        final var account = new Account(1L, accountRequest.documentNumber());
+        final var accountRequest = new AccountRequest("documentNumber", BigDecimal.ONE);
+        final var account = new Account(1L, accountRequest.documentNumber(), accountRequest.availableCreditLimit());
 
-        when(accountService.createAccount(accountRequest.documentNumber()))
+        when(accountService.createAccount(accountRequest.documentNumber(), accountRequest.availableCreditLimit()))
                 .thenReturn(account);
 
         this.mockMvc
@@ -49,14 +51,14 @@ class AccountControllerTest {
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        verify(accountService).createAccount(accountRequest.documentNumber());
+        verify(accountService).createAccount(accountRequest.documentNumber(), accountRequest.availableCreditLimit());
         verify(accountMapper).fromDomainToResponse(account);
     }
 
 
     @Test
     void fetch_account_succeed() throws Exception {
-        final var account = new Account(1L, "document_number");
+        final var account = new Account(1L, "document_number", BigDecimal.ZERO);
 
         when(accountService.fetchAccount(account.accountId())).thenReturn(account);
 
